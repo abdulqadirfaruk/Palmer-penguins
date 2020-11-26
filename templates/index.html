@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Palmer Penguins</title>
+{% endblock %}
+
+{% block content %}
+
+    <section id="wrapper">
+        <div class="params">
+            <h2><img src="/static/logo.png" alt="logo" id="logo">Palmer Penguin Species</h2><br>
+            <form id="form" action="{{ url_for('.predict') }}" method="POST">
+                <div id="box">
+                <div>
+
+                    <label for="bl">Bill length:</label><br>
+                        <input required type="range" class="slider" id="bl" name="bl" min="10" max="100" value="0" step="1.1" oninput="b_length.value=this.value">
+                        <output name="b_length" id="b_length" for="bl"><b>0</b></output><span id="unit">(mm)</span><br>
+
+                    <label for="bw">Bill width:</label><br>
+                        <input required type="range" class="slider" id="bw" name="bw" min="10" max="100" value="0" step="1.1" oninput="b_width.value=this.value">
+                        <output name="b_width" id="b_width" for="bw"><b>0</b></output><span id="unit">(mm)</span><br>
+
+                    <label for="fl">Flipper length:</label><br>
+                        <input required type="range" class="slider" id="fl" name="fl" min="1" max="300" value="0" step="1" oninput="f_length.value=this.value">
+                        <output name="f_length" id="f_length" for="fl"><b>0</b></output><span id="unit">(mm)</span><br>
+
+                    <label for="mass">Body mass:</label><br>
+                        <input required type="range" class="slider" id="mass" name="mass" min="100" max="7000" value="0" step="5" oninput="b_mass.value=this.value">
+                        <output name="b_mass" id="b_mass" for="mass"><b>0</b></output><span id="unit">(g)</span><br>
+
+                    <label for="sex">Sex:</label><br>
+                        <select name="sex" id="sex" required>
+                            <option selected>choose...</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select><br>
+
+                    <label for="island">Island:</label><br>
+                    <select name="island" id="island" required>
+                        <option selected>choose...</option>
+                        <option value="0">Biscoe Island</option>
+                        <option value="1">Dream Island</option>
+                        <option value="2">Torgersen Island</option>
+                    </select><br>
+
+
+                    <label for="model">Prediction model:</label><br>
+                    <select name="model" id="model">
+                            <option selected>default</option>
+                            <option value="0">SVM model (default)</option>
+                            <option value="1">Random forest model</option>
+                        </select><br>
+
+                </div><br>
+                <div>
+                    <input type="submit" id="submit" name="submit" value="Predict Species">
+                </div>
+                </div>
+            </form>
+            <div>
+                <form action="{{ url_for('.export') }}" method="POST">
+                    <button id="export" name="export">Export results  <i class="fas fa-file-download"></i></button>
+                </form>
+                <a href="https://github.com/AbdulqadirFY/Palmer-penguins" target="_blank"><img src="/static/github.png" alt="github" style="width: 6%; margin-top: 8px; margin-left: auto; margin-right: auto;"></a>
+            </div>
+            <center>
+                <div id="citation">
+                    <p>Copyright (c) 2020 Abdulqadir Yabo.
+                    Artwork by <a href="https://github.com/allisonhorst/palmerpenguins/tree/master/man/figures" target="_blank">@allison_horst</a></p>
+                </div>
+            </center>
+
+        </div>
+        <div class="main">
+            <img src="/static/penguins.png" alt="penguins">
+            <div >
+                <center>
+
+                    {% if data == 0 %}
+                    <h3>The specie of your penguin is: <br><br><h1 id="p">ADÉLEI!</h1></h3>
+                        <p style="font-family: Courier, monospace; font-size: smaller;">Prediction accuracy: {{ accuracy }} %</p>
+                        <br>
+                        <form action="{{ url_for('.clear') }}" method="POST">
+                            <button id="r" name="refresh" type="submit" value="clear">clear</button>
+                        </form>
+                    {% elif data == 1 %}
+                    <h3>The specie of your penguin is: <br><br><h1 id="p">GENTOO!</h1></h3>
+                        <p style="font-family: Courier, monospace; font-size: smaller;">Prediction accuracy: {{ accuracy }} %</p>
+                        <br>
+                        <form action="{{ url_for('.clear') }}" method="POST">
+                            <button id="r" name="refresh" type="submit" value="clear">clear</button>
+                        </form>
+                    {% elif data == 2 %}
+                    <h3>The specie of your penguin is: <br><br><h1 id="p">CHINSTRAP!</h1></h3>
+                        <p style="font-family: Courier, monospace; font-size: smaller;">Prediction accuracy: {{ accuracy }} %</p>
+                        <br>
+                        <form action="{{ url_for('.clear') }}" method="POST">
+                            <button id="r" name="refresh" type="submit" value="clear">clear</button>
+                        </form>
+                    {% endif %}
+
+                </center>
+            </div>
+
+        </div>
+        <div class="comment">
+            <h3>Reviews</h3>
+            <div style="position: static;">
+                <form action="{{ url_for('post') }}" method="POST">
+                    <input type="text" name="name" placeholder="name (optional)" id="name">
+                    <input type="text" name="comment" placeholder="add review..." id="comment" required>
+                    <input type="submit" name="post" id="post" required value="Post">
+                </form>
+            </div>
+            <div style="overflow-y: scroll; height: 200px;">
+                <ul id="list">
+                        {% for review in reviews %}
+                        <li>
+                            <div id="reviews">
+                                <p style="font-size: small; font-family: Courier, monospace;"><b>{{ review.name }}</b>  {{ review.time_stamp }}</p>
+                                <p style="font-size: small; padding-left: 5px; max-width: content-box;"><i>{{ review.comment }}</i></p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
