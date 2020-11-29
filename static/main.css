@@ -165,7 +165,7 @@ label {
 #name {
     margin-left: 20px;
     width: 18%;
-    border: 1px solid lightsalmon;
+    border: 2px solid #93b8fc;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     padding-left: 0.5%;
@@ -174,7 +174,7 @@ label {
 
 #comment {
     width: 70%;
-    border: 1px solid lightsalmon;
+    border: 2px solid #93b8fc;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     padding-left: 0.5%;
@@ -188,12 +188,18 @@ label {
 }
 
 #reviews {
-    background-color: #d7eaf5;
+    background-color: #fff6d4;
     margin-left: 10%;
     border-radius: 10px;
     max-width: 80%;
     padding: 5px 5px 1px 5px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
+    border: 2px solid #ebffe5;
+    box-shadow: 0px 0px 20px 0px #c2faae;
+}
+
+#reviews:hover {
+  border: 2px solid #c2f5b3;
 }
 
 @keyframes prediction {
@@ -208,9 +214,9 @@ label {
 }
 
 #citation {
-    font-size: x-small;
+    font-size: xx-small;
     font-style: normal;
-    margin-left: 7%;
+    margin-left: 4.5%;
     position:absolute;
     bottom:0;
 
