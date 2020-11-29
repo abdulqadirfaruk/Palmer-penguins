@@ -217,8 +217,8 @@ label {
     font-size: xx-small;
     font-style: normal;
     margin-left: 4.5%;
-    position:absolute;
-    bottom:0;
+    position: fixed;
+    bottom: 5px;
 
 }
 

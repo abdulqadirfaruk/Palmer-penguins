@@ -51,17 +51,19 @@ def predict():
         prediction_result = randomForest.predict(features)
         acc = 95.5
 
-    if features[0, 4] == 0:
-        features = "Male"
-    else:
-        features[0, 4] = "Female"
+    feature = features.tolist()
 
-    if features[0, 5] == 0:
-        features[0, 5] = "Biscoe"
-    elif features[0, 5] == 1:
-        features[0, 5] = "Dream"
-    else:
-        features[0, 5] = "Torgerson"
+    if feature[0][4] == "0":
+        feature[0][4] = "Male"
+    elif feature[0][4] == "1":
+        feature[0][4] = "Female"
+
+    if feature[0][5] == "0":
+        feature[0][5] = "Biscoe"
+    elif feature[0][5] == "1":
+        feature[0][5] = "Dream"
+    elif feature[0][5] == "2":
+        feature[0][5] = "Torgerson"
 
     value = prediction_result
     if value == 0:
@@ -71,7 +73,7 @@ def predict():
     elif value == 2:
         value = "Chinstrap"
 
-    output = numpy.append(features, value)
+    output = numpy.append(feature, value)
     file = open("results.txt", "a")
     file.write(str(output) + "\n")
     file.close()
